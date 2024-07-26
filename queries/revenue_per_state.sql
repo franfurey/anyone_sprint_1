@@ -3,21 +3,25 @@
 -- with most revenue and the second one the total revenue of each.
 -- HINT: All orders should have a delivered status and the actual delivery date 
 -- should be not null. 
+WITH orders_with_revenue AS (
+    SELECT 
+        customers.customer_state, 
+        payments.payment_value
+    FROM 
+        olist_orders orders 
+    INNER JOIN olist_customers customers ON orders.customer_id = customers.customer_id
+    INNER JOIN olist_order_payments payments ON orders.order_id = payments.order_id
+    WHERE 
+        orders.order_status IS 'delivered' AND orders.order_delivered_customer_date IS NOT NULL
+)
 
 SELECT 
-    c.customer_state AS customer_state,
-    SUM(oi.price) AS Revenue
+    customer_state, 
+    SUM(payment_value) AS Revenue
 FROM 
-    olist_orders o
-JOIN 
-    olist_order_items oi ON o.order_id = oi.order_id
-JOIN 
-    olist_customers c ON o.customer_id = c.customer_id
-WHERE 
-    o.order_status = 'delivered' 
-    AND o.order_delivered_customer_date IS NOT NULL
+    orders_with_revenue
 GROUP BY 
-    c.customer_state
+    customer_state
 ORDER BY 
     Revenue DESC
 LIMIT 10;

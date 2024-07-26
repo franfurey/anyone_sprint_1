@@ -8,26 +8,24 @@
 -- 2. You can use the CAST function to convert a number to an integer.
 -- 3. You can use the STRFTIME function to convert a order_delivered_customer_date to a string removing hours, minutes and seconds.
 -- 4. order_status == 'delivered' AND order_delivered_customer_date IS NOT NULL
-
-SELECT c.customer_state AS State, 
-       AVG(CAST((julianday(o.order_delivered_customer_date) - julianday(o.order_estimated_delivery_date)) AS INTEGER)) AS Delivery_Difference
-FROM olist_orders o
-JOIN olist_customers c ON o.customer_id = c.customer_id
-WHERE o.order_status = 'delivered' AND o.order_delivered_customer_date IS NOT NULL
-GROUP BY c.customer_state
-
--- SELECT 
---     c.customer_state AS State,
---     CAST(ROUND(ABS(AVG(julianday(o.order_delivered_customer_date) - julianday(o.order_estimated_delivery_date)))) AS INTEGER) AS Delivery_Difference
--- FROM 
---     olist_orders o
--- JOIN 
---     olist_customers c ON o.customer_id = c.customer_id
--- WHERE 
---     o.order_status = 'delivered' 
---     AND o.order_delivered_customer_date IS NOT NULL
--- GROUP BY 
---     c.customer_state
--- ORDER BY
---     Delivery_Difference ASC,  -- Ordenar primero por el valor numérico en orden descendente
---     c.customer_state ASC;      -- Ordenar por el valor alfabético en caso de empate
+WITH orders_with_dates AS (
+    SELECT
+        c.customer_state,
+        STRFTIME('%Y-%m-%d', o.order_estimated_delivery_date) AS estimated_delivery_date,
+        STRFTIME('%Y-%m-%d', o.order_delivered_customer_date) AS delivered_customer_date
+    FROM
+        olist_orders o
+    INNER JOIN
+        olist_customers c ON o.customer_id = c.customer_id
+    WHERE
+        o.order_status = 'delivered' AND o.order_delivered_customer_date IS NOT NULL
+)
+SELECT
+    customer_state AS State,
+    CAST(AVG(JULIANDAY(estimated_delivery_date) - JULIANDAY(delivered_customer_date)) AS INT) AS Delivery_Difference
+FROM
+    orders_with_dates
+GROUP BY
+    customer_state
+ORDER BY
+    Delivery_Difference ASC;

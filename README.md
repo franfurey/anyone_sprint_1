@@ -1,3 +1,8 @@
+- **Generate project structure**:
+  ```bash
+  tree --prune -I 'venv|__pycache__|*.pyc|*.pyo|*.log|*.db|*.sqlite|*.egg-info|node_modules|build|README2.md|*.js.map|*.css.map' > project_structure.txt
+  ```
+
 # Sprint project 01
 > E-Commerce Data Pipeline
 
