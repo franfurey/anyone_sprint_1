@@ -5,7 +5,6 @@ from typing import List
 from pytest import fixture
 from sqlalchemy import create_engine
 from sqlalchemy.engine.base import Engine
-from sqlalchemy.engine.base import Engine
 from src.transform import (
     query_delivery_date_difference,
     query_global_ammount_order_status,
