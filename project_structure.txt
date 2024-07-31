@@ -4,7 +4,9 @@
 ├── LICENSE
 ├── README.md
 ├── airflow_dags
-│   └── ecommerce_elt_dag.py
+│   ├── ecommerce_elt_dag.py
+│   ├── simple_dag.py
+│   └── taskflow_dag.py
 ├── database_ai_agent.ipynb
 ├── dataset
 │   ├── olist_customers_dataset.csv
@@ -31,7 +33,6 @@
 │   ├── top_10_least_revenue_categories.sql
 │   └── top_10_revenue_categories.sql
 ├── requirements.txt
-├── revenue_by_month_year.ipynb
 ├── src
 │   ├── __init__.py
 │   ├── config.py
@@ -39,20 +40,19 @@
 │   ├── load.py
 │   ├── plots.py
 │   └── transform.py
-├── tests
-│   ├── __init__.py
-│   ├── query_results
-│   │   ├── delivery_date_difference.json
-│   │   ├── get_freight_value_weight_relationship.json
-│   │   ├── global_ammount_order_status.json
-│   │   ├── orders_per_day_and_holidays_2017.json
-│   │   ├── real_vs_estimated_delivered_time.json
-│   │   ├── revenue_by_month_year.json
-│   │   ├── revenue_per_state.json
-│   │   ├── top_10_least_revenue_categories.json
-│   │   └── top_10_revenue_categories.json
-│   ├── test_extract.py
-│   └── test_transform.py
-└── top_10_rows_combined.txt
+└── tests
+    ├── __init__.py
+    ├── query_results
+    │   ├── delivery_date_difference.json
+    │   ├── get_freight_value_weight_relationship.json
+    │   ├── global_ammount_order_status.json
+    │   ├── orders_per_day_and_holidays_2017.json
+    │   ├── real_vs_estimated_delivered_time.json
+    │   ├── revenue_by_month_year.json
+    │   ├── revenue_per_state.json
+    │   ├── top_10_least_revenue_categories.json
+    │   └── top_10_revenue_categories.json
+    ├── test_extract.py
+    └── test_transform.py
 
 8 directories, 48 files
