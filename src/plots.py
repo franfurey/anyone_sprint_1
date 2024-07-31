@@ -1,10 +1,8 @@
 import matplotlib
-import matplotlib.pyplot as plt
-
-import plotly.express as px
 import seaborn as sns
-
+import plotly.express as px
 from pandas import DataFrame
+import matplotlib.pyplot as plt
 
 
 def plot_revenue_by_month_year(df: DataFrame, year: int):
